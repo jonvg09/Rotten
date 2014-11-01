@@ -2,7 +2,7 @@ import csv
 from pprint import pprint
 
 def main():
-	with open('rotten7.csv', 'rb') as csvfile:
+	with open('training_set_short.csv', 'rb') as csvfile:
 		training_set_reader = csv.reader(csvfile, delimiter=';', quotechar='|')
 		review_list = []
 		review = ()
@@ -37,7 +37,7 @@ def main():
 			print i
 
 	total_per_grade = { 0:0, 1:0, 2:0, 3:0, 4:0 }
-	with open('rotten7.csv', 'rb') as csvfile:
+	with open('test_set_short.csv', 'rb') as csvfile:
 		test_set_reader = csv.reader(csvfile, delimiter=';', quotechar='|')
 		review_list_TS = []
 		review_TS = ()
