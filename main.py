@@ -1,4 +1,4 @@
-import math
+#import math
 import csv
 from pprint import pprint
 
@@ -34,7 +34,8 @@ def main():
 						sum_rate = sum_rate + float(sentence[1])
 						ave_rate = (sum_rate / word_count)-2
 			
-			unique_dict[k]= pow(ave_rate,3)	#average rate
+			unique_dict[k]= ave_rate
+			#unique_dict[k]= pow(ave_rate,3)	#average rate
 			curious.append((k, sum_rate))
 		for i in curious:
 			print i
@@ -88,9 +89,9 @@ def main():
 
 		print "Grade\tTotal\tEstimate"
 		for k,v in grouping.iteritems():
-			for kk, vv in total_per_grade.iteritems():
-				if k == kk:
-					print str(k) + "\t\t" + str(vv) + "\t\t" + str(v)
+			print str(k) + "\t\t" + str(v)
+		for k, v in total_per_grade.iteritems():
+			print str(k) + "\t\t" + str(v)
 
 
 
