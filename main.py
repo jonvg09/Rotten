@@ -1,8 +1,9 @@
+import math
 import csv
 from pprint import pprint
 
 def main():
-	with open('training_set_short.csv', 'rb') as csvfile:
+	with open('rotten_training_short.csv', 'rb') as csvfile:
 		training_set_reader = csv.reader(csvfile, delimiter=';', quotechar='|')
 		review_list = []
 		review = ()
@@ -24,20 +25,22 @@ def main():
 		for k, v in unique_dict.iteritems():
 			word_count = 0
 			sum_rate = 0
+			ave_rate = 0
 			for sentence in review_list:			#counts the word in training set and finds out the cumulative rate for all words
 				temp_list_of_words = sentence[0].split()
 				for word in temp_list_of_words:
 					if k == word:
 						word_count = word_count + 1
-						sum_rate = sum_rate + float(sentence[1]) 
+						sum_rate = sum_rate + float(sentence[1])
+						ave_rate = (sum_rate / word_count)-2
 			
-			unique_dict[k]= sum_rate / word_count	#average rate
+			unique_dict[k]= pow(ave_rate,3)	#average rate
 			curious.append((k, sum_rate))
 		for i in curious:
 			print i
 
-	total_per_grade = { 0:0, 1:0, 2:0, 3:0, 4:0 }
-	with open('test_set_short.csv', 'rb') as csvfile:
+	total_per_grade = { -2:0, -1:0, 1:0, 2:0 }
+	with open('rotten_test_short.csv', 'rb') as csvfile:
 		test_set_reader = csv.reader(csvfile, delimiter=';', quotechar='|')
 		review_list_TS = []
 		review_TS = ()
@@ -69,15 +72,18 @@ def main():
 		
 		# Key,Value pair where the grade is the key
 		# and the frequency of that grade is the value
-		grouping = { 0:0, 1:0, 2:0, 3:0, 4:0 }
+		grouping = { 0:0, 1:0 }
 
 		# Loop through the list of 2-tuples
 		for entry in review_list_TS:
 			# Only check the cases where the frequency was not 0
 			if entry[1][2] != 0:
-				# Compute the rounded value of dividing total/freq.
-				value = int(round(entry[1][1]/entry[1][2]))
-				# Add to the total for that particular grade group
+				
+				if entry[1][1] < 0:
+					value = 0
+				else
+					value = 1 
+				# Add to the total for that particular grade group neg/pos
 				grouping[value] = grouping[value] + 1
 
 		print "Grade\tTotal\tEstimate"
