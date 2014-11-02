@@ -1,5 +1,5 @@
-#import math
 import csv
+#import math
 from pprint import pprint
 
 def main():
@@ -37,8 +37,8 @@ def main():
 			unique_dict[k]= ave_rate
 			#unique_dict[k]= pow(ave_rate,3)	#average rate
 			curious.append((k, sum_rate))
-		for i in curious:
-			print i
+		#for i in curious:
+			#print i
 
 	total_per_grade = { -2:0, -1:0, 1:0, 2:0 }
 	with open('rotten_test_short.csv', 'rb') as csvfile:
